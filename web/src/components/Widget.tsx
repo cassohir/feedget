@@ -6,11 +6,7 @@ import {WidgetForm} from './WidgetForm'
 //Estado 
 
 export function Widget(){
-  // const [isWidgetOpen,setIsWidgetOpen] = useState(false);
 
-  // function toggleWidgetVisibility(){
-  //   setIsWidgetOpen(!isWidgetOpen);
-  // }
   return (  
     <Popover className="absolute bottom-4 right-4 md:botton-8 md:right-10 flex flex-col items-end  ">
       

@@ -1,6 +1,8 @@
 
+import { ArrowLeft } from 'phosphor-react';
 import {FeedbackType,feedbackTypes} from '..'
 import { CloseButton } from '../../CloseButton';
+// import {FeedbackContentStep} from '../Steps/FeedbackContentStep';
 
 interface FeedbackTypeStepProps{
   onFeedbackTypeChanged: (type: FeedbackType) => void;
@@ -11,7 +13,11 @@ export function FeedbackTypeStep({onFeedbackTypeChanged}: FeedbackTypeStepProps)
   return (
     <>
     <header>
+
+    
     <span className="text-xl leading-6"> Deixe seu feedback</span>
+    
+
 
   <CloseButton />
 

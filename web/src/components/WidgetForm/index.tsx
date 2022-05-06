@@ -38,6 +38,9 @@ export function WidgetForm()
 {
    const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
 
+   function handleRestartFeedback(){
+     setFeedbackType(null);
+   }
 
   return (
 
@@ -49,12 +52,16 @@ export function WidgetForm()
 
         <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType}/>
       ): (
-        <FeedbackContentStep feedbackType={feedbackType} />
+        <FeedbackContentStep 
+        feedbackType={feedbackType}
+        onFeedbackRestartRequested={handleRestartFeedback}
+        
+        />
       )}
 
 
 
-      <footer className="text-xs text-neutral-400">
+      <footer className="text-xs text-neutral-400 mt-1.5">
       Feito com ♥︎ por <i><a  href="https://www.instagram.com/cassio_izidorio" target="_blank"rel="noopener noreferer">@cassio_izidorio</a></i>
       </footer>
 
