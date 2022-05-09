@@ -4,7 +4,7 @@ import bugImageUrl from '../../assets/Figmoji/bug.svg';
 import ideaImageUrl from '../../assets/Figmoji/idea.svg'; 
 import toughtImageUrl from '../../assets/Figmoji/thought.svg';
 import {FeedbackTypeStep} from '../WidgetForm/Steps/FeedbackTypeStep';
-// import {FeedbackSucessStep} from '../WidgetForm/Steps/FeedbackSuccessStep';
+import {FeedbackSuccessStep} from './Steps/FeedbackSuccessStep';
 import {FeedbackContentStep} from '../WidgetForm/Steps/FeedbackContentStep';
 
 export const feedbackTypes ={
@@ -46,20 +46,27 @@ export function WidgetForm()
 
     <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto"> 
 
-    
+      { feedbackSent ? (
 
-      {!feedbackType ?(
+        <FeedbackSuccessStep />
+      ):(
+        <>
+         
+            {!feedbackType ?(
 
-        <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType}/>
-      ): (
-        <FeedbackContentStep 
-        feedbackType={feedbackType}
-        onFeedbackRestartRequested={handleRestartFeedback}
-        
-        />
+            <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType}/>
+            ): (
+            <FeedbackContentStep 
+            feedbackType={feedbackType}
+            onFeedbackRestartRequested={handleRestartFeedback}
+            onFeedbackSent={() => setFeedbackSent(true)}
+
+            />
+            )}
+                  
+        </>
+
       )}
-
-
 
       <footer className="text-xs text-neutral-400 mt-1.5">
       Feito com ♥︎ por <i><a  href="https://www.instagram.com/cassio_izidorio" target="_blank"rel="noopener noreferer">@cassio_izidorio</a></i>
