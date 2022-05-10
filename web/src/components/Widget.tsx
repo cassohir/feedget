@@ -11,23 +11,23 @@ export function Widget(){
     <Popover className="absolute bottom-4 right-4 md:botton-8 md:right-10 flex flex-col items-end  ">
       
       
-      <Popover.Panel>
+    <Popover.Panel>
 
-        <WidgetForm />
+      <WidgetForm />
 
-      </Popover.Panel>
+    </Popover.Panel>
 
-      <Popover.Button className="bg-primary-200 rounded-full px-3 h-12 text-primary-100 flex items-center group">
-        <ChatTeardropDots weight="bold" className="w-6 h-6"/>
+    <Popover.Button className="bg-primary-200 rounded-full px-3 h-12 text-primary-100 flex items-center group">
+      <ChatTeardropDots weight="bold" className="w-6 h-6"/>
 
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-linear">
-          <span className="pl-2">
+      <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-linear">
+        <span className="pl-2">
 
-          Feedback
+        Feedback
 
-          </span>
         </span>
-      </Popover.Button>
-    </Popover>
+      </span>
+    </Popover.Button>
+  </Popover>
   )
 }

@@ -25,8 +25,6 @@ const [comment,setComment] = useState("");
 
 const [screenshot,setScreenShot] = useState<string | null>(null);
 
-const [feedbackSent,setFeedbackSent] = useState(null);
-
 const feedbackTypInfo = feedbackTypes[feedbackType];
 
 function handleSubmitFeedback(event: FormEvent){
