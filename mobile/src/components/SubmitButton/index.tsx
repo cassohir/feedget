@@ -1,12 +1,30 @@
 import React from 'react';
-import { View } from 'react-native';
+import {Text,TouchableOpacity, TouchableOpacityProps, ActivityIndicator } from 'react-native';
+import { theme } from '../../theme';
+
 
 import { styles } from './styles';
 
-export function SubmitButton() {
-  return (
-    <View style={styles.container}>
+interface SubmitButtonProps extends TouchableOpacityProps{
+  isLoading: boolean;
+}
 
-    </View>
+export function SubmitButton({isLoading,...rest}: SubmitButtonProps) {
+  return (
+    <TouchableOpacity 
+    style={styles.container}
+    {...rest}
+    >
+      {
+        isLoading ?
+        <ActivityIndicator
+          color={theme.colors.text_on_brand_color}
+        /> :
+        <Text 
+        style={styles.title}>
+          Enviar feedback
+        </Text>
+      }
+    </TouchableOpacity>
   );
 }

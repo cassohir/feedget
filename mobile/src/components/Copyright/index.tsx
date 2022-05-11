@@ -10,7 +10,7 @@ export function Copyright() {
     <View >
       <Text onPress={()=> Linking.openURL('https://www.instagram.com/cassio_izidorio')} style={styles.text}>
       Feito com ♥︎ por @cassio_izidorio </Text>
-      {/* <i><a  href="https://www.instagram.com/cassio_izidorio" target="_blank"rel="noopener noreferer">@cassio_izidorio</a></i> */}
+
      
     </View>
   );
