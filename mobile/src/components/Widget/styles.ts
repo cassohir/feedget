@@ -21,7 +21,7 @@ import {getBottomSpace} from 'react-native-iphone-x-helper'
     paddingBottom: getBottomSpace() + 16
   },
   indicator: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary, 
     width: 56,
     
 
