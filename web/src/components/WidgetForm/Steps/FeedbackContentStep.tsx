@@ -3,6 +3,8 @@ import {FeedbackType, feedbackTypes } from ".."
 import { ArrowLeft} from "phosphor-react";
 import { ScreenShotButton } from "../ScreenShotButton";
 import { FormEvent, useState } from "react";
+import { api } from "../../../libs/api";
+import { Loading } from "../Loading";
 
 
 
@@ -22,19 +24,27 @@ export function FeedbackContentStep({
 {
 
 const [comment,setComment] = useState("");
-
 const [screenshot,setScreenShot] = useState<string | null>(null);
-
+const [isSendingFeedback,setIsSendingFeedback] = useState(false);
 const feedbackTypInfo = feedbackTypes[feedbackType];
 
-function handleSubmitFeedback(event: FormEvent){
+
+ async function handleSubmitFeedback(event: FormEvent){
   event.preventDefault();
+  setIsSendingFeedback(true);
   
-  console.log({
+  // console.log({
+  //   comment,
+  //   screenshot
+  // });
+
+  await api.post('/feedbacks',{
+    type: feedbackType,
     comment,
     screenshot
-  });
+  })
 
+  setIsSendingFeedback(false);
   onFeedbackSent();
 }
 
@@ -91,10 +101,12 @@ function handleSubmitFeedback(event: FormEvent){
     <button  
      
       type="submit"
-      disabled={comment.length === 0 }
+      disabled={comment.length === 0  || isSendingFeedback}
       className="p-2 bg-primary-200 rounded-md border-transparent flex flex-1 justify-center items-center text-sm hover:bg-primary-300
       focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-offset-zinc-900 hover:ring-primary-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-primary-200"
-      >Enviar FeedBack
+      >{isSendingFeedback ? <Loading /> : "Enviar"}
+      
+      
 
     </button>
 

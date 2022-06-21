@@ -1,63 +1,63 @@
 import { ArrowLeft } from 'phosphor-react-native';
-import React, {useState} from 'react';
-import { View, TextInput,Image,Text, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Image, Text, TouchableOpacity } from 'react-native';
 import { theme } from '../../theme';
-import {FeedbackType} from '../../components/Widget';
+import { FeedbackType } from '../../components/Widget';
 import { ScreenShotButton } from '../../components/ScreenShotButton';
 import { SubmitButton } from '../../components/SubmitButton';
-import {captureScreen} from 'react-native-view-shot';
+import { captureScreen } from 'react-native-view-shot';
 import * as FileSystem from 'expo-file-system';
 
 import { styles } from './styles';
-import {feedbackTypes} from  '../../utils/feedbackTypes';
+import { feedbackTypes } from '../../utils/feedbackTypes';
 import { api } from '../../libs/api';
 
 interface PropsForm {
   feedbackType: FeedbackType;
-  onFeedbackCanceled: ()=> void;
+  onFeedbackCanceled: () => void;
   onFeedbackSent: () => void;
 }
 
-export function Form({feedbackType, onFeedbackCanceled, onFeedbackSent}: PropsForm) {
+export function Form({ feedbackType, onFeedbackCanceled, onFeedbackSent }: PropsForm) {
 
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
-  
-  const [comment,setComment] = useState('');
 
-  const [screenshot,setScreenShot] = useState<string | null>(null);
+  const [comment, setComment] = useState('');
+
+  const [screenshot, setScreenShot] = useState<string | null>(null);
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
-  function handleScreenshot(){
+  function handleScreenshot() {
     captureScreen({
       format: 'jpg',
       quality: 0.8,
 
-    }).then(uri =>setScreenShot(uri)).catch(err => console.error(err));
+    }).then(uri => setScreenShot(uri)).catch(err => console.error(err));
   }
-  function handleScreenshotRemove(){
+  function handleScreenshotRemove() {
     setScreenShot(null);
   }
 
-  async function handleSubmitFeedback(){
-    if(isSendingFeedback){
+  async function handleSubmitFeedback() {
+    if (isSendingFeedback) {
       return;
     }
 
     setIsSendingFeedback(true);
 
-    const screenShotBase64 = screenshot && await FileSystem.readAsStringAsync(screenshot, {encoding:'base64'});
-    try{
-      await api.post('/feedbacks',{
+    const screenShotBase64 = screenshot && await FileSystem.readAsStringAsync(screenshot, { encoding: 'base64' });
+    try {
+      await api.post('/feedbacks', {
         type: feedbackType,
-        screenshot:`data:image/png;base64,${screenShotBase64}`,
-        comment
+        screenshot: `data:image/png;base64, ${screenShotBase64}`,
+        comment,
       });
 
-      onFeedbackSent();
+     onFeedbackSent();
 
-    }catch(erro){
-      console.log(erro);
+    } catch (erro) {
+      console.log("não consegui enviar o feedback");
       setIsSendingFeedback(false);
     }
   }
@@ -68,7 +68,7 @@ export function Form({feedbackType, onFeedbackCanceled, onFeedbackSent}: PropsFo
         <TouchableOpacity
           onPress={onFeedbackCanceled}
         >
-          <ArrowLeft 
+          <ArrowLeft
             size={20}
             weight="bold"
             color={theme.colors.primary}
@@ -85,30 +85,30 @@ export function Form({feedbackType, onFeedbackCanceled, onFeedbackSent}: PropsFo
 
           </Text>
 
+        </View>
+
       </View>
+      <TextInput
+        multiline
+        style={styles.inputText}
+        placeholder="Descreva com detalhes seu feedback..."
+        placeholderTextColor={theme.colors.text_secondary}
+        autoCorrect={false}
+        onChangeText={setComment}
+      />
 
-    </View>
-     <TextInput
-      multiline
-      style={styles.inputText}
-      placeholder="Descreva com detalhes seu feedback..."
-      placeholderTextColor={theme.colors.text_secondary}
-      autoCorrect={false}
-      onChangeText= {setComment}
-     /> 
-
-     <View style={styles.footer}>
-        <ScreenShotButton 
+      <View style={styles.footer}>
+        <ScreenShotButton
           onTakeShot={handleScreenshot}
           onRemoveShot={handleScreenshotRemove}
-          screenshot={screenshot}  
+          screenshot={screenshot}
         />
         <SubmitButton
-          onPress={handleSubmitFeedback} 
+          onPress={handleSubmitFeedback}
           isLoading={isSendingFeedback}
         />
 
-     </View>
+      </View>
     </View>
   );
- }
+}

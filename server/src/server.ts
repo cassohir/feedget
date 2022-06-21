@@ -9,8 +9,11 @@ import cors from 'cors'
 //Inicialização do express pra ajudar no gerenciamento das rotas
 const app = express();
 
+
+
 app.use(cors({
-  origin: 'http://localhost:3001'
+  origin: 'http://:3000'
+  // origin: '192.168.100.80:3000'
  }
 ));
 

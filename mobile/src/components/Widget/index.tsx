@@ -56,7 +56,8 @@ export type FeedbackType = keyof typeof feedbackTypes;
       >
         {
           feedbackSent ?
-            <SuccessSubmitted onSendAnotherFeedback={handleRestartFeedback} /> :
+            <SuccessSubmitted onSendAnotherFeedback={handleRestartFeedback} />
+            :
             <>
             {
 
